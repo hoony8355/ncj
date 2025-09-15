@@ -48,11 +48,11 @@ const Contact = () => {
         <div className="mt-12 max-w-3xl mx-auto">
           {/* 
             !!! IMPORTANT !!!
-            Replace 'your-form-id' with your actual Formspree form ID from your Formspree dashboard.
-            Example: https://formspree.io/f/mvojoyyl
+            This is a public test endpoint. 
+            Replace 'mknllbve' with your actual Formspree form ID from your Formspree dashboard.
           */}
           <form 
-            action="https://formspree.io/f/your-form-id" 
+            action="https://formspree.io/f/mknllbve" 
             method="POST" 
             className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8"
             onSubmit={handleSubmit}
