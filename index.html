@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko" class="scroll-smooth">
   <head>
@@ -82,7 +81,7 @@
     <script type="text/babel" data-type="module">
       import React, { useState, useEffect } from 'react';
       import ReactDOM from 'react-dom/client';
-      import { Menu, X, TrendingUp, Search, Megaphone, GraduationCap, Target, BarChart, Star, Send, CheckCircle, AlertTriangle, Linkedin, Facebook, Instagram } from 'lucide-react';
+      import { Menu, X, TrendingUp, Search, Megaphone, GraduationCap, Target, BarChart, Star, Send, CheckCircle, AlertTriangle } from 'lucide-react';
 
       // --- Component: Header ---
       const NavLink = ({ href, children, onClick }) => (
@@ -559,7 +558,7 @@
                           </div>
                           <div className="ml-3">
                               <p className="text-sm text-gray-600">
-                                  <a href="#" className="font-medium text-blue-600 hover:text-blue-500">개인정보 수집·이용</a>에 동의합니다.
+                                  <a href="#privacy-policy" className="font-medium text-blue-600 hover:text-blue-500">개인정보 수집·이용</a>에 동의합니다.
                               </p>
                           </div>
                       </div>
@@ -593,14 +592,70 @@
           </section>
         );
       };
+      
+      // --- Component: Privacy Policy ---
+      const PrivacyPolicy = () => {
+        return (
+          <section id="privacy-policy" className="py-20 bg-gray-50 sm:py-24">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+                  개인정보처리방침
+                </h2>
+                <p className="mt-4 text-lg text-gray-500">
+                  최종 수정일: {new Date().toLocaleDateString('ko-KR')}
+                </p>
+              </div>
+              <div className="prose prose-lg mx-auto text-gray-600">
+                <p>노클전(이하 '회사')은 개인정보 보호법 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리지침을 수립·공개합니다.</p>
+                
+                <h3>제1조(개인정보의 처리목적)</h3>
+                <p>회사는 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 개인정보 보호법 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.</p>
+                <ol>
+                    <li>프로젝트 문의 접수 및 처리: 문의 내용 확인, 사실조사를 위한 연락·통지, 처리결과 통보 등의 목적으로 개인정보를 처리합니다.</li>
+                </ol>
+
+                <h3>제2조(처리하는 개인정보 항목)</h3>
+                <p>회사는 다음의 개인정보 항목을 처리하고 있습니다.</p>
+                <ul>
+                    <li>필수항목: 이름, 이메일</li>
+                    <li>선택항목: 회사명, 연락처, 월 예산, 관심 서비스, 프로젝트/문의 내용</li>
+                </ul>
+
+                <h3>제3조(개인정보의 처리 및 보유기간)</h3>
+                <p>회사는 법령에 따른 개인정보 보유·이용기간 또는 정보주체로부터 개인정보를 수집 시에 동의받은 개인정보 보유·이용기간 내에서 개인정보를 처리·보유합니다.</p>
+                <p>각각의 개인정보 처리 및 보유 기간은 다음과 같습니다.</p>
+                <ol>
+                    <li>프로젝트 문의 접수 및 처리: 문의 접수 후 3년</li>
+                    <li>관련 법령 위반에 따른 수사·조사 등에 대한 정보: 해당 수사·조사 종료 시까지</li>
+                </ol>
+
+                <h3>제4조(정보주체의 권리·의무 및 행사방법)</h3>
+                <p>정보주체는 회사에 대해 언제든지 다음 각 호의 개인정보 보호 관련 권리를 행사할 수 있습니다.</p>
+                <ol>
+                    <li>개인정보 열람요구</li>
+                    <li>오류 등이 있을 경우 정정 요구</li>
+                    <li>삭제요구</li>
+                    <li>처리정지 요구</li>
+                </ol>
+
+                <h3>제5조(개인정보의 파기)</h3>
+                <p>회사는 개인정보 보유기간의 경과, 처리목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체없이 해당 개인정보를 파기합니다.</p>
+                
+                <h3>제6조(개인정보 보호책임자)</h3>
+                <p>회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.</p>
+                <ul>
+                    <li>성명: [대표자 성명]</li>
+                    <li>직책: 대표</li>
+                    <li>연락처: <a href="mailto:hale7292@gmail.com">hale7292@gmail.com</a></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        );
+      };
 
       // --- Component: Footer ---
-      const SocialLink = ({ href, icon: Icon, label }) => (
-        <a href={href} className="text-gray-400 hover:text-gray-300">
-          <span className="sr-only">{label}</span>
-          <Icon className="h-6 w-6" />
-        </a>
-      );
       const Footer = () => {
         return (
           <footer className="bg-gray-900 text-white">
@@ -613,11 +668,6 @@
                     <br />
                     데이터로 증명하고, 실행으로 성장시킵니다.
                   </p>
-                  <div className="flex space-x-6">
-                    <SocialLink href="#" icon={Facebook} label="Facebook" />
-                    <SocialLink href="#" icon={Instagram} label="Instagram" />
-                    <SocialLink href="#" icon={Linkedin} label="LinkedIn" />
-                  </div>
                 </div>
                 <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
                   <div className="md:grid md:grid-cols-2 md:gap-8">
@@ -634,7 +684,7 @@
                       <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Company</h3>
                       <ul className="mt-4 space-y-4">
                         <li><a href="#" className="text-base text-gray-300 hover:text-white">이용약관</a></li>
-                        <li><a href="#" className="text-base text-gray-300 hover:text-white">개인정보처리방침</a></li>
+                        <li><a href="#privacy-policy" className="text-base text-gray-300 hover:text-white">개인정보처리방침</a></li>
                       </ul>
                     </div>
                   </div>
@@ -668,6 +718,7 @@
               <Portfolio />
               <Testimonials />
               <Contact />
+              <PrivacyPolicy />
             </main>
             <Footer />
           </div>
