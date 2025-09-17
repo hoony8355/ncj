@@ -49,16 +49,622 @@
   <script type="importmap">
 {
   "imports": {
-    "react": "https://aistudiocdn.com/react@^19.1.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
-    "react/": "https://aistudiocdn.com/react@^19.1.1/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.544.0"
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.378.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/"
   }
 }
 </script>
 </head>
   <body>
     <div id="root"></div>
-    <script type="text/babel" data-type="module" src="./index.js"></script>
+    <script type="text/babel" data-type="module">
+      import React, { useState, useEffect } from 'react';
+      import ReactDOM from 'react-dom/client';
+      import { Menu, X, TrendingUp, Search, Megaphone, GraduationCap, Target, BarChart, Star, Send, CheckCircle, AlertTriangle, Linkedin, Facebook, Instagram } from 'lucide-react';
+
+      // --- Component: Header ---
+      const NavLink = ({ href, children, onClick }) => (
+        <a
+          href={href}
+          onClick={onClick}
+          className="text-gray-600 hover:text-blue-600 transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium"
+        >
+          {children}
+        </a>
+      );
+
+      const Header = () => {
+        const [isScrolled, setIsScrolled] = useState(false);
+        const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+        useEffect(() => {
+          const handleScroll = () => {
+            setIsScrolled(window.scrollY > 10);
+          };
+          window.addEventListener('scroll', handleScroll);
+          return () => window.removeEventListener('scroll', handleScroll);
+        }, []);
+
+        const navLinks = [
+          { href: '#home', label: 'Home' },
+          { href: '#services', label: 'Service' },
+          { href: '#portfolio', label: 'Portfolio' },
+          { href: '#testimonials', label: 'Testimonials' },
+          { href: '#contact', label: 'Contact' },
+        ];
+
+        const closeMenu = () => setIsMenuOpen(false);
+
+        return (
+          <header
+            className={`sticky top-0 z-50 transition-all duration-300 ${
+              isScrolled ? 'bg-white/80 shadow-md backdrop-blur-sm' : 'bg-transparent'
+            }`}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-16">
+                <div className="flex-shrink-0">
+                  <a href="#home" className="text-2xl font-bold text-gray-900">
+                    노클전
+                  </a>
+                </div>
+                <div className="hidden md:block">
+                  <nav className="ml-10 flex items-baseline space-x-4">
+                    {navLinks.map((link) => (
+                      <NavLink key={link.href} href={link.href} onClick={() => {}}>
+                        {link.label}
+                      </NavLink>
+                    ))}
+                  </nav>
+                </div>
+                <div className="hidden md:block">
+                  <a
+                    href="#contact"
+                    className="ml-4 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                  >
+                    문의하기
+                  </a>
+                </div>
+                <div className="md:hidden flex items-center">
+                  <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                  >
+                    {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                  </button>
+                </div>
+              </div>
+            </div>
+            {isMenuOpen && (
+              <div className="md:hidden bg-white shadow-lg">
+                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={closeMenu}
+                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                   <a
+                    href="#contact"
+                    onClick={closeMenu}
+                    className="block w-full text-left mt-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+                  >
+                    문의하기
+                  </a>
+                </div>
+              </div>
+            )}
+          </header>
+        );
+      };
+
+      // --- Component: Hero ---
+      const NaverLogo = () => (
+          <svg className="h-8 w-auto text-green-600" fill="currentColor" viewBox="0 0 48 48">
+              <path d="M24 6.342h-8.62L6.342 24v8.62L24 41.658h8.62L41.658 24v-8.62L24 6.342zM24 8.25l13.75 13.75V24h-6.875V15.125h-5L24 24h-1.875v8.875h5L34 24v-1.125L24 8.25z" transform="translate(0 -2) scale(1.1)"/>
+              <path d="M19.5 24l-3.375-5.625h6.75L19.5 24zM28.5 24l3.375 5.625h-6.75L28.5 24z"/>
+              <path d="M15.375 15.125L24 29.625 32.625 15.125H15.375zM24 35.875L15.375 21.375h17.25L24 35.875z" opacity=".2"/>
+              <path fill="#fff" d="M21.164 21.164h5.672v5.672h-5.672z"/>
+          </svg>
+      );
+      const MetaLogo = () => (
+          <svg className="h-8 w-auto text-blue-600" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.996 11.23c0-1.83-1.02-3.51-2.61-4.45.39-1.05.39-2.22 0-3.27-1.11-2.88-4.08-4.51-7.2-4.51-2.94 0-5.76 1.5-7.05 4.14-.39 1.05-.39 2.22 0 3.27-1.59.94-2.61 2.61-2.61 4.45 0 1.83 1.02 3.51 2.61 4.45-.39 1.05-.39 2.22 0 3.27 1.29 2.64 4.11 4.14 7.05 4.14 3.12 0 6.09-1.62 7.2-4.51.39-1.05.39-2.22 0-3.27 1.59-.94 2.61-2.61 2.61-4.45zm-11.996-8.28c1.74 0 3.33 1.02 4.05 2.58.33.72.33 1.53 0 2.25-.72 1.56-2.31 2.58-4.05 2.58-1.74 0-3.33-1.02-4.05-2.58-.33-.72-.33-1.53 0-2.25.72-1.56 2.31-2.58 4.05-2.58zm0 16.56c-1.74 0-3.33-1.02-4.05-2.58-.33-.72-.33-1.53 0-2.25.72-1.56 2.31-2.58 4.05-2.58 1.74 0 3.33 1.02 4.05 2.58.33.72.33 1.53 0 2.25-.72 1.56-2.31-2.58-4.05-2.58z" />
+          </svg>
+      );
+      const GoogleLogo = () => (
+          <svg className="h-8 w-auto" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.19,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.19,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.19,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1Z" />
+          </svg>
+      );
+      const Hero = () => {
+        return (
+          <section id="home" className="bg-white pt-20 pb-16 lg:pt-32 lg:pb-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center">
+                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                  <span className="block">스타트업 성장,</span>
+                  <span className="block text-blue-600">네이버 퍼포먼스 + 실행형 SEO로 당겨옵니다.</span>
+                </h1>
+                <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+                  초기 예산에 최적화된 유입과 전환, 그리고 장기 오가닉 성장을 한 번에.
+                </p>
+                <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
+                  <div className="rounded-md shadow">
+                    <a
+                      href="#contact"
+                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
+                    >
+                      무료 상담 요청
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-16 lg:mt-24">
+                <p className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wider">
+                  공식 수행 매체
+                </p>
+                <div className="mt-6 grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-3 justify-items-center">
+                  <div className="col-span-1 flex justify-center">
+                    <NaverLogo />
+                  </div>
+                  <div className="col-span-1 flex justify-center">
+                    <MetaLogo />
+                  </div>
+                  <div className="col-span-2 md:col-span-1 flex justify-center">
+                     <GoogleLogo />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      };
+
+      // --- Component: Services ---
+      const ServiceCard = ({ icon: Icon, title, description }) => (
+        <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white mb-6">
+            <Icon size={28} />
+          </div>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
+          <p className="text-gray-600 text-base">{description}</p>
+        </div>
+      );
+      const servicesData = [
+        {
+          icon: TrendingUp,
+          title: '네이버 퍼포먼스 (SA/GFA)',
+          description: '네이버 SA/GFA로 ‘지금’ 필요한 고객을 데려옵니다. 키워드·세그먼트·크리에이티브까지 실전형 세팅.',
+        },
+        {
+          icon: Search,
+          title: 'SEO 대행/실행',
+          description: '기술 + 콘텐츠 + 스키마, 보고서로 끝나지 않는 실행형 SEO로 중장기 오가닉 성장을 확보합니다.',
+        },
+        {
+          icon: Megaphone,
+          title: '바이럴 (레뷰/SNS)',
+          description: '레뷰·SNS·커뮤니티를 통해 사회적 증거를 극대화하고, 브랜드 신뢰를 설계합니다.',
+        },
+        {
+          icon: GraduationCap,
+          title: '온·오프라인 교육',
+          description: '실무형 교육으로 마케팅 운영, 분석, 크리에이티브 역량을 강화하고 내부 역량을 내재화합니다.',
+        },
+      ];
+      const Services = () => {
+        return (
+          <section id="services" className="py-20 bg-gray-50 sm:py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center">
+                <h2 className="text-base font-semibold text-blue-600 tracking-wide uppercase">Our Services</h2>
+                <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+                  스타트업 성장을 위한 맞춤 솔루션
+                </p>
+                <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500">
+                  노클전은 데이터 기반의 전략으로 가장 효율적인 성장 경로를 제안합니다.
+                </p>
+              </div>
+              <div className="mt-16 grid gap-10 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4">
+                {servicesData.map((service) => (
+                  <ServiceCard key={service.title} {...service} />
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      };
+
+      // --- Component: Portfolio ---
+      const PortfolioItem = ({ category, client, title, imageUrl, challenge, result, stats }) => (
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+          <img src={imageUrl} alt={title} className="w-full h-56 object-cover" />
+          <div className="p-6">
+            <p className="text-sm font-semibold text-blue-600 uppercase">{category}</p>
+            <h3 className="mt-2 text-2xl font-bold text-gray-900">{client}</h3>
+            <p className="mt-1 text-lg text-gray-700">{title}</p>
+            <div className="mt-6">
+              <div className="flex items-start">
+                  <div className="flex-shrink-0"><Target className="h-6 w-6 text-gray-400" /></div>
+                  <div className="ml-4">
+                      <h4 className="text-md font-bold text-gray-800">배경/과제</h4>
+                      <p className="mt-1 text-gray-600">{challenge}</p>
+                  </div>
+              </div>
+               <div className="flex items-start mt-4">
+                  <div className="flex-shrink-0"><BarChart className="h-6 w-6 text-gray-400" /></div>
+                  <div className="ml-4">
+                      <h4 className="text-md font-bold text-gray-800">결과</h4>
+                      <p className="mt-1 text-gray-600">{result}</p>
+                  </div>
+              </div>
+            </div>
+             <div className="mt-6 pt-4 border-t border-gray-200">
+                  <dl className="grid grid-cols-2 gap-x-4 gap-y-4">
+                      {stats.map(stat => (
+                          <div key={stat.label} className="flex flex-col-reverse">
+                              <dt className="text-sm font-medium text-gray-500">{stat.label}</dt>
+                              <dd className="text-2xl font-extrabold text-blue-600">{stat.value}</dd>
+                          </div>
+                      ))}
+                  </dl>
+             </div>
+          </div>
+        </div>
+      );
+      const portfolioData = [
+        {
+          category: '네이버 SA & SEO',
+          client: 'B2B SaaS 스타트업 A사',
+          title: '오가닉 리드 확보 및 전환율 개선',
+          imageUrl: 'https://picsum.photos/seed/portfolio1/600/400',
+          challenge: '초기 브랜드 인지도 부족으로 인한 유료 트래픽 의존도 심화 및 높은 CAC.',
+          result: '네이버 브랜드 검색 및 GFA 논리타겟팅으로 잠재고객 유입을 늘리고, 기술/콘텐츠 SEO로 핵심 키워드 1페이지 상위 노출 달성.',
+          stats: [
+            { label: '전환율(CVR)', value: '+35%' },
+            { label: 'ROAS', value: '1,200%' },
+          ],
+        },
+        {
+          category: 'SNS 바이럴 & GFA',
+          client: 'D2C 쇼핑몰 B사',
+          title: '신제품 런칭 캠페인',
+          imageUrl: 'https://picsum.photos/seed/portfolio2/600/400',
+          challenge: '경쟁이 치열한 뷰티 시장에서 신제품 인지도 확보 및 초기 매출 견인 필요.',
+          result: '인플루언서 협업 콘텐츠를 GFA 소재로 활용하여 타겟 고객층에 확산. 레뷰 체험단으로 초기 리뷰 및 사회적 증거 확보.',
+          stats: [
+              { label: '참여율(CPE)', value: '₩150' },
+              { label: '초기매출', value: '+250%' },
+          ],
+        },
+      ];
+      const Portfolio = () => {
+        return (
+          <section id="portfolio" className="py-20 bg-white sm:py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center">
+                <h2 className="text-base font-semibold text-blue-600 tracking-wide uppercase">Portfolio</h2>
+                <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+                  성공으로 증명된 결과
+                </p>
+                <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500">
+                  우리의 전략이 어떻게 실제 비즈니스 성장으로 이어졌는지 확인하세요.
+                </p>
+              </div>
+              <div className="mt-16 max-w-lg mx-auto grid gap-10 lg:grid-cols-2 lg:max-w-none">
+                {portfolioData.map((item) => (
+                  <PortfolioItem key={item.client} {...item} />
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      };
+
+      // --- Component: Testimonials ---
+      const TestimonialCard = ({ quote, author, title, logoUrl }) => (
+        <div className="bg-white p-8 rounded-lg shadow-md flex flex-col h-full">
+          <div className="flex text-yellow-400 mb-4">
+              {[...Array(5)].map((_, i) => <Star key={i} fill="currentColor" />)}
+          </div>
+          <blockquote className="flex-grow">
+            <p className="text-lg text-gray-700">“{quote}”</p>
+          </blockquote>
+          <footer className="mt-8">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <img className="h-12 w-12 object-contain" src={logoUrl} alt={`${author}'s company logo`} />
+              </div>
+              <div className="ml-4">
+                <div className="text-base font-bold text-gray-900">{author}</div>
+                <div className="text-base text-gray-500">{title}</div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      );
+      const testimonialsData = [
+        {
+          quote: "단순 대행을 넘어, 우리 팀의 일원처럼 함께 고민하고 실행해주셨습니다. SEO에 대한 이해도가 완전히 달라졌어요.",
+          author: "김민준",
+          title: "CEO, 주식회사 딥테크",
+          logoUrl: "https://via.placeholder.com/150/EEEEEE/333333?text=D",
+        },
+        {
+          quote: "네이버 광고 예산이 2배 이상 효율적으로 사용되기 시작했습니다. 매주 공유주시는 리포트 퀄리티가 다릅니다.",
+          author: "이서연",
+          title: "마케팅팀 팀장, 패셔나",
+          logoUrl: "https://via.placeholder.com/150/EEEEEE/333333?text=F",
+        },
+        {
+          quote: "실무 교육을 통해 팀원들이 스스로 광고를 세팅하고 분석할 수 있게 되었습니다. 장기적으로 큰 자산이 될 것 같습니다.",
+          author: "박지훈",
+          title: "대표, 스토어프렌즈",
+          logoUrl: "https://via.placeholder.com/150/EEEEEE/333333?text=S",
+        },
+      ];
+      const Testimonials = () => {
+        return (
+          <section id="testimonials" className="py-20 bg-gray-50 sm:py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center">
+                <h2 className="text-base font-semibold text-blue-600 tracking-wide uppercase">Testimonials</h2>
+                <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+                  고객들이 말하는 노클전
+                </p>
+              </div>
+              <div className="mt-16 max-w-2xl mx-auto grid grid-cols-1 gap-10 lg:max-w-none lg:grid-cols-3">
+                {testimonialsData.map((testimonial) => (
+                  <TestimonialCard key={testimonial.author} {...testimonial} />
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      };
+
+      // --- Component: Contact ---
+      const Contact = () => {
+        const [formState, setFormState] = useState({ status: 'idle', message: null });
+        const handleSubmit = async (event) => {
+          event.preventDefault();
+          setFormState({ status: 'loading', message: null });
+          
+          const form = event.currentTarget;
+          const data = new FormData(form);
+          
+          try {
+            const response = await fetch(form.action, {
+              method: form.method,
+              body: data,
+              headers: {
+                'Accept': 'application/json'
+              }
+            });
+            
+            if (response.ok) {
+              setFormState({ status: 'success', message: '문의가 성공적으로 제출되었습니다. 곧 연락드리겠습니다!' });
+              form.reset();
+            } else {
+              const responseData = await response.json();
+              if (Object.prototype.hasOwnProperty.call(responseData, 'errors')) {
+                throw new Error(responseData["errors"].map((error) => error.message).join(", "));
+              } else {
+                throw new Error('양식 제출 중 오류가 발생했습니다.');
+              }
+            }
+          } catch (error) {
+            setFormState({ status: 'error', message: error.message || '알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.' });
+          }
+        };
+
+        return (
+          <section id="contact" className="py-20 bg-white sm:py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-3xl mx-auto text-center">
+                <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">프로젝트 문의하기</h2>
+                <p className="mt-4 text-lg text-gray-500">
+                  성장의 첫 걸음, 노클전과 함께하세요. 아래 양식을 작성해주시면 빠르게 회신드리겠습니다.
+                </p>
+              </div>
+              <div className="mt-12 max-w-3xl mx-auto">
+                <form 
+                  action="https://formspree.io/f/mknllbve" 
+                  method="POST" 
+                  className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8"
+                  onSubmit={handleSubmit}
+                >
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">이름</label>
+                    <div className="mt-1">
+                      <input type="text" name="name" id="name" required className="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md" />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="company" className="block text-sm font-medium text-gray-700">회사명</label>
+                    <div className="mt-1">
+                      <input type="text" name="company" id="company" className="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md" />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">연락처</label>
+                    <div className="mt-1">
+                      <input type="tel" name="phone" id="phone" className="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md" />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">이메일</label>
+                    <div className="mt-1">
+                      <input type="email" name="email" id="email" required className="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md" />
+                    </div>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label htmlFor="budget" className="block text-sm font-medium text-gray-700">월 예산</label>
+                    <div className="mt-1">
+                      <select name="budget" id="budget" className="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md">
+                        <option value="under3m">월 300만원 미만</option>
+                        <option value="3to10m">월 300만~1,000만원</option>
+                        <option value="10mplus">월 1,000만원 이상</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <fieldset>
+                      <legend className="block text-sm font-medium text-gray-700">관심 서비스 (복수 선택 가능)</legend>
+                      <div className="mt-4 grid grid-cols-2 gap-4">
+                        <div className="flex items-center"><input id="service_naver" name="service" type="checkbox" value="naver" className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded" /><label htmlFor="service_naver" className="ml-3 block text-sm text-gray-700">네이버 SA/GFA</label></div>
+                        <div className="flex items-center"><input id="service_seo" name="service" type="checkbox" value="seo" className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded" /><label htmlFor="service_seo" className="ml-3 block text-sm text-gray-700">SEO 대행/실행</label></div>
+                        <div className="flex items-center"><input id="service_viral" name="service" type="checkbox" value="viral" className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded" /><label htmlFor="service_viral" className="ml-3 block text-sm text-gray-700">레뷰/SNS 바이럴</label></div>
+                        <div className="flex items-center"><input id="service_edu" name="service" type="checkbox" value="edu" className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded" /><label htmlFor="service_edu" className="ml-3 block text-sm text-gray-700">온·오프 교육</label></div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700">프로젝트/문의 내용</label>
+                    <div className="mt-1">
+                      <textarea name="message" id="message" rows={6} className="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border border-gray-300 rounded-md"></textarea>
+                    </div>
+                  </div>
+                  <div className="sm:col-span-2">
+                      <div className="flex items-start">
+                          <div className="flex-shrink-0">
+                              <input id="privacy" name="privacy" type="checkbox" required className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
+                          </div>
+                          <div className="ml-3">
+                              <p className="text-sm text-gray-600">
+                                  <a href="#" className="font-medium text-blue-600 hover:text-blue-500">개인정보 수집·이용</a>에 동의합니다.
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <button type="submit" disabled={formState.status === 'loading'} className="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400">
+                      {formState.status === 'loading' ? '전송 중...' : '문의하기'}
+                      {formState.status !== 'loading' && <Send className="ml-3 -mr-1 h-5 w-5" />}
+                    </button>
+                  </div>
+                </form>
+
+                {formState.status === 'success' && (
+                  <div className="mt-6 p-4 rounded-md bg-green-50 border border-green-300">
+                    <div className="flex items-center">
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <p className="ml-3 text-sm font-medium text-green-800">{formState.message}</p>
+                    </div>
+                  </div>
+                )}
+                {formState.status === 'error' && (
+                  <div className="mt-6 p-4 rounded-md bg-red-50 border border-red-300">
+                    <div className="flex items-center">
+                      <AlertTriangle className="h-5 w-5 text-red-500" />
+                      <p className="ml-3 text-sm font-medium text-red-800">{formState.message}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        );
+      };
+
+      // --- Component: Footer ---
+      const SocialLink = ({ href, icon: Icon, label }) => (
+        <a href={href} className="text-gray-400 hover:text-gray-300">
+          <span className="sr-only">{label}</span>
+          <Icon className="h-6 w-6" />
+        </a>
+      );
+      const Footer = () => {
+        return (
+          <footer className="bg-gray-900 text-white">
+            <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+              <div className="xl:grid xl:grid-cols-3 xl:gap-8">
+                <div className="space-y-8 xl:col-span-1">
+                  <h2 className="text-3xl font-bold">노클전</h2>
+                  <p className="text-gray-400 text-base">
+                    스타트업 전문 온라인 마케팅 대행사.
+                    <br />
+                    데이터로 증명하고, 실행으로 성장시킵니다.
+                  </p>
+                  <div className="flex space-x-6">
+                    <SocialLink href="#" icon={Facebook} label="Facebook" />
+                    <SocialLink href="#" icon={Instagram} label="Instagram" />
+                    <SocialLink href="#" icon={Linkedin} label="LinkedIn" />
+                  </div>
+                </div>
+                <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
+                  <div className="md:grid md:grid-cols-2 md:gap-8">
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Services</h3>
+                      <ul className="mt-4 space-y-4">
+                        <li><a href="#services" className="text-base text-gray-300 hover:text-white">네이버 퍼포먼스</a></li>
+                        <li><a href="#services" className="text-base text-gray-300 hover:text-white">SEO 대행/실행</a></li>
+                        <li><a href="#services" className="text-base text-gray-300 hover:text-white">바이럴 마케팅</a></li>
+                        <li><a href="#services" className="text-base text-gray-300 hover:text-white">온·오프라인 교육</a></li>
+                      </ul>
+                    </div>
+                    <div className="mt-12 md:mt-0">
+                      <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Company</h3>
+                      <ul className="mt-4 space-y-4">
+                        <li><a href="#" className="text-base text-gray-300 hover:text-white">이용약관</a></li>
+                        <li><a href="#" className="text-base text-gray-300 hover:text-white">개인정보처리방침</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="md:grid md:grid-cols-1 md:gap-8">
+                     <div>
+                        <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Contact</h3>
+                        <ul className="mt-4 space-y-4">
+                           <li className="text-base text-gray-300">Email: <a href="mailto:hale7292@gmail.com" className="hover:text-white">hale7292@gmail.com</a></li>
+                           <li className="text-base text-gray-300">사업자 정보: [추가 예정]</li>
+                        </ul>
+                     </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-12 border-t border-gray-700 pt-8">
+                <p className="text-base text-gray-400 xl:text-center">&copy; {new Date().getFullYear()} Noklzun. All rights reserved.</p>
+              </div>
+            </div>
+          </footer>
+        );
+      };
+
+      // --- Main App Component ---
+      const App = () => {
+        return (
+          <div className="bg-gray-50 text-gray-800 font-sans">
+            <Header />
+            <main>
+              <Hero />
+              <Services />
+              <Portfolio />
+              <Testimonials />
+              <Contact />
+            </main>
+            <Footer />
+          </div>
+        );
+      };
+
+      // --- App Entry Point ---
+      const rootElement = document.getElementById('root');
+      if (!rootElement) {
+        throw new Error("Could not find root element to mount to");
+      }
+      const root = ReactDOM.createRoot(rootElement);
+      root.render(
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      );
+    </script>
   </body>
 </html>
