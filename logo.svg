@@ -1,0 +1,5 @@
+<svg width="150" height="40" viewBox="0 0 150 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="40" height="40" rx="8" fill="#2563EB"/>
+  <path d="M10 32V8H15L21 20V8H26V32H21L15 20V32H10Z" fill="white"/>
+  <text x="55" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="bold" fill="#111827">노클전</text>
+</svg>
