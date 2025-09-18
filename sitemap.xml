@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- 홈 -->
+  <url>
+    <loc>https://hoony8355.github.io/ncj/</loc>
+    <lastmod>2025-09-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <!-- 대표 이미지(선택) -->
+    <image:image>
+      <image:loc>https://hoony8355.github.io/ncj/og1.png</image:loc>
+      <image:caption>NCJ Marketing Agency</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://hoony8355.github.io/ncj/logo1.png</image:loc>
+      <image:caption>NCJ 로고</image:caption>
+    </image:image>
+  </url>
+
+</urlset>
